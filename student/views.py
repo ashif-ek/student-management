@@ -153,21 +153,7 @@ class EnrollmentCreateView(LoginRequiredMixin, AdminRequiredMixin, CreateView):
     def form_valid(self, form):
         response = super().form_valid(form)
         enrollment = self.object
-        student_user = enrollment.student.user
         course_title = enrollment.course.title
-        
-        # Send Email
-        try:
-            send_mail(
-                subject=f'Course Enrollment: {course_title}',
-                message=f'Dear {student_user.username},\n\nYou have been enrolled in the course: {course_title}.\n\nBest regards,\nStudent Management System',
-                from_email='admin@bridgeon.com',
-                recipient_list=[student_user.email],
-                fail_silently=False,
-            )
-            messages.success(self.request, f"Student enrolled in {course_title} and email sent.")
-        except Exception as e:
-            messages.warning(self.request, f"Student enrolled, but email failed: {e}")
-        
+        messages.success(self.request, f"Student enrolled in {course_title} successfully.")
         return response
 
