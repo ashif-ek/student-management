@@ -20,6 +20,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.shortcuts import redirect
 
+print("LOADING CONFIG/URLS.PY...")
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('student.urls')),
