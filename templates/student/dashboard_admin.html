@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-3">
+        <div class="list-group">
+            <a href="{% url 'admin_dashboard' %}" class="list-group-item list-group-item-action active">Dashboard</a>
+            <a href="{% url 'course_list' %}" class="list-group-item list-group-item-action">Manage Courses</a>
+            <a href="{% url 'student_list' %}" class="list-group-item list-group-item-action">Manage Students</a>
+            <a href="{% url 'enrollment_create' %}" class="list-group-item list-group-item-action">Enroll Student</a>
+            <a href="{% url 'logout' %}" class="list-group-item list-group-item-action text-danger">Logout</a>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <h2 class="mb-4">Admin Dashboard</h2>
+        <div class="alert alert-success">
+            Welcome, <strong>{{ user.username }}</strong>! You are logged in as Admin.
+        </div>
+
+        <div class="row g-3">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Total Students</h5>
+                    <p class="card-text display-4">{{ student_count }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Total Courses</h5>
+                    <p class="card-text display-4">{{ course_count }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

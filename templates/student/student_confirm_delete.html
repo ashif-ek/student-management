@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirm Delete{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow border-danger">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0">Confirm Delete</h4>
+            </div>
+            <div class="card-body text-center">
+                <p class="lead">Are you sure you want to delete the student: <strong>{{ object.user.username
+                        }}</strong>?</p>
+                <p class="text-danger"><small>This action cannot be undone and will delete the associated user account
+                        as well.</small></p>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                    <a href="{% url 'student_list' %}" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

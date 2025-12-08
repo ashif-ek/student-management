@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}Student Dashboard{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-3">
+        <!-- Sidebar for student -->
+        <div class="card mb-3">
+            <div class="card-body text-center">
+                {% if user.student_profile.profile_picture %}
+                <img src="{{ user.student_profile.profile_picture.url }}" class="img-fluid rounded-circle mb-3"
+                    style="width: 100px; height: 100px; object-fit: cover;">
+                {% else %}
+                <div class="bg-secondary rounded-circle d-inline-block mb-3"
+                    style="width: 100px; height: 100px; line-height: 100px; color: white;">No Img</div>
+                {% endif %}
+                <h5>{{ user.get_full_name|default:user.username }}</h5>
+                <p class="text-muted">{{ user.student_profile.roll_number }}</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><a href="#" class="text-decoration-none">My Profile</a></li>
+                <li class="list-group-item"><a href="#" class="text-decoration-none">My Courses</a></li>
+                <li class="list-group-item"><a href="{% url 'logout' %}"
+                        class="text-decoration-none text-danger">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <h2 class="mb-4">Student Dashboard</h2>
+        <div class="alert alert-info">
+            Welcome back, <strong>{{ user.username }}</strong>!
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                My Enrolled Courses
+            </div>
+            <div class="card-body">
+                {% if user.student_profile.courses.all %}
+                <ul class="list-group">
+                    {% for course in user.student_profile.courses.all %}
+                    <li class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{ course.title }}</h5>
+                            <small>Enrolled</small>
+                        </div>
+                        <p class="mb-1">{{ course.description }}</p>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p class="card-text">You are not enrolled in any courses yet.</p>
+                {% endif %}
+                <!-- Course list will go here -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
